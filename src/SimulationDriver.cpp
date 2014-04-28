@@ -1,8 +1,19 @@
 #include "SimulationDriver.h"
 
-SimulationDriver::SimulationDriver(double clearance, int size)
+SimulationDriver::SimulationDriver(double clearance, unsigned int worldSize)
 {
-    //ctor
+    this -> clearance = clearance;
+    this -> frameCount = 0;
+    this -> clears = 0;
+    for(size_t i = 0; i < CLEARTIMES; i++) {
+        this -> clearFrame[i] = 0;
+    }
+
+    // Initialise worlds
+    this -> world[0] = new World(worldSize);
+    for(size_t i = 0; i <= CLEARTIMES; i++) {
+        this -> world[i] = NULL;
+    }
 }
 
 void SimulationDriver::run()
@@ -13,5 +24,7 @@ void SimulationDriver::run()
 
 SimulationDriver::~SimulationDriver()
 {
-    //dtor
+    for(size_t i = 0; i <= CLEARTIMES && i <= clears; i++) {
+        delete this -> world[i];
+    }
 }

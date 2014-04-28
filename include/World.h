@@ -1,23 +1,32 @@
 #ifndef WORLD_H
 #define WORLD_H
-#include <cstdlib>
+#include <iostream>
 #include "Cell.h"
 
+#define WORLD_WIDTH 20
+#define WORLD_HEIGHT 30
+
 using namespace std;
+
+struct population_t {
+    unsigned long int white;
+    unsigned long int black;
+    unsigned long int none;
+};
 
 class World
 {
     public:
-        World(unsigned int worldSize);
+        World();
         virtual ~World();
-
-	void setSolarLuminosity(double l) { this -> solarLuminosity = l; }
-        double getSolarLuminosity() { return this -> solarLuminosity; };
+        population_t census();
+        void setSolarLuminosity(double l) { this -> solarLuminosity = l; }
+        double getSolarLuminosity() { return this -> solarLuminosity; }
+        void update();
     protected:
     private:
         double solarLuminosity;
-        size_t size;
-        Cell* cell;
+        Cell** cell;
 };
 
 #endif // WORLD_H

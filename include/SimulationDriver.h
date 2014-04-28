@@ -11,16 +11,16 @@
 class SimulationDriver
 {
     public:
-        SimulationDriver(double clearance, unsigned int worldSize);
+        SimulationDriver(double clearance);
         virtual ~SimulationDriver();
         void run();
     protected:
     private:
         bool graphical;
         double clearance;
-        int clearFrame[CLEARTIMES];
-        int clears;
-        int frameCount;
+        unsigned int clearFrame[CLEARTIMES];
+        unsigned int clears;
+        unsigned long int frameCount;
         World* world[CLEARTIMES + 1];
 };
 

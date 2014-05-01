@@ -8,12 +8,10 @@ class Cell
     public:
         Cell();
         virtual ~Cell();
-    protected:
-        CellColour colour;
-        double temperature;
-    private:
         bool is_daisy;
         int energy;
+        CellColour colour;
+        double temperature;
 };
 
 #endif // CELL_H

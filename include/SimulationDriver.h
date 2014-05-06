@@ -3,7 +3,7 @@
 
 #define START_LUMINOSITY 1.0F
 #define LUMINOSITY_STEP 0.1F
-#define LUMINOSOTY_STEP_FRAMES 50
+#define LUMINOSITY_STEP_FRAMES 50
 #define CLEARTIMES 3
 
 #include "World.h"

@@ -5,9 +5,11 @@ using namespace std;
 
 int main(int argc, char **argv)
 {
-    SimulationDriver sim = SimulationDriver(0.5);
-    sim.run();
+    SimulationDriver *sim = new SimulationDriver(0.5);
+    sim -> run();
+    delete sim;
 
-    cout << "Done\n";
     return 0;
 }
+
+

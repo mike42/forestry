@@ -18,7 +18,7 @@ SimulationDriver::SimulationDriver(double clearance)
     
     // Seed the first world and set it to a habitable temperature
     this -> world[0] -> setSolarLuminosity(START_LUMINOSITY);
-    this -> world[0] -> setGlobalTemp(35);
+    this -> world[0] -> setGlobalTemp(30);
     this -> world[0] -> seed(0.5);
 }
 

@@ -15,6 +15,14 @@ class Cell
         virtual ~Cell();
         void calcUpdate(World* w, size_t pos_x, size_t pos_y);
         void doUpdate(World* w, size_t pos_x, size_t pos_y);
+        double getAlbedo() {
+            if(colour == WHITE) {
+                return 0.75;
+            } else if(colour == BLACK) {
+                return 0.25;
+            }
+            return 0.5;
+        };
         bool is_daisy;
         int energy;
         CellColour colour;
@@ -22,7 +30,7 @@ class Cell
     private:
     	bool doDie;
     	bool doBreed;
-    	int nextTemp;
+    	double nextTemp;
 };
 
 #endif // CELL_H

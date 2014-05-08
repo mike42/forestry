@@ -13,6 +13,7 @@
 using namespace std;
 
 struct population_t {
+    double temperature;
     unsigned long int white;
     unsigned long int black;
     unsigned long int none;
@@ -34,7 +35,7 @@ class World
         int seed(double density);
         void getLocalArea(size_t x, size_t y, Cell* ptr[9]);
         void setGlobalTemp(double temp);
-        
+
         uniform_real_distribution<> dis;
         mt19937 gen;
     protected:

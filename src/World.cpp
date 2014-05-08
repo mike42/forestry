@@ -46,6 +46,7 @@ population_t World::census() {
     result.black = 0;
     result.white = 0;
     result.none = 0;
+    result.temperature = 0;
     size_t y, x;
     for(y = 0; y < WORLD_HEIGHT; y++) {
         for(x = 0; x < WORLD_WIDTH; x++) {
@@ -59,9 +60,11 @@ population_t World::census() {
             case GREY:
                 result.none++;
                 break;
-           }
+            }
+            result.temperature += this -> cell[y][x].temperature;
         }
     }
+    result.temperature /= (WORLD_HEIGHT * WORLD_WIDTH);
     return result;
 }
 

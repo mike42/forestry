@@ -12,11 +12,11 @@ LD = g++
 WINDRES = windres
 
 INC = 
-CFLAGS = -Wall -fexceptions -std=c++11
+CFLAGS = `pkg-config --cflags opencv` -Wall -fexceptions -std=c++11
 RESINC = 
 LIBDIR = 
 LIB = 
-LDFLAGS = 
+LDFLAGS = `pkg-config --libs opencv`
 
 INC_DEBUG = $(INC) -Iinclude
 CFLAGS_DEBUG = $(CFLAGS) -g
@@ -40,9 +40,9 @@ OBJDIR_RELEASE = obj/Release
 DEP_RELEASE = 
 OUT_RELEASE = bin/Release/forestry
 
-OBJ_DEBUG = $(OBJDIR_DEBUG)/main.o $(OBJDIR_DEBUG)/src/Cell.o $(OBJDIR_DEBUG)/src/SimulationDriver.o $(OBJDIR_DEBUG)/src/World.o
+OBJ_DEBUG = $(OBJDIR_DEBUG)/main.o $(OBJDIR_DEBUG)/src/Cell.o $(OBJDIR_DEBUG)/src/SimulationDriver.o $(OBJDIR_DEBUG)/src/World.o $(OBJDIR_DEBUG)/src/Display.o
 
-OBJ_RELEASE = $(OBJDIR_RELEASE)/main.o $(OBJDIR_RELEASE)/src/Cell.o $(OBJDIR_RELEASE)/src/SimulationDriver.o $(OBJDIR_RELEASE)/src/World.o
+OBJ_RELEASE = $(OBJDIR_RELEASE)/main.o $(OBJDIR_RELEASE)/src/Cell.o $(OBJDIR_RELEASE)/src/SimulationDriver.o $(OBJDIR_RELEASE)/src/World.o $(OBJDIR_RELEASE)/src/Display.o
 
 all: debug release
 
@@ -71,6 +71,9 @@ $(OBJDIR_DEBUG)/src/SimulationDriver.o: src/SimulationDriver.cpp
 
 $(OBJDIR_DEBUG)/src/World.o: src/World.cpp
 	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c src/World.cpp -o $(OBJDIR_DEBUG)/src/World.o
+
+$(OBJDIR_DEBUG)/src/Display.o: src/Display.cpp
+	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c src/Display.cpp -o $(OBJDIR_DEBUG)/src/Display.o
 
 clean_debug: 
 	rm -f $(OBJ_DEBUG) $(OUT_DEBUG)
@@ -101,6 +104,9 @@ $(OBJDIR_RELEASE)/src/SimulationDriver.o: src/SimulationDriver.cpp
 
 $(OBJDIR_RELEASE)/src/World.o: src/World.cpp
 	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c src/World.cpp -o $(OBJDIR_RELEASE)/src/World.o
+
+$(OBJDIR_RELEASE)/src/Display.o: src/Display.cpp
+	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c src/Display.cpp -o $(OBJDIR_RELEASE)/src/Display.o
 
 clean_release: 
 	rm -f $(OBJ_RELEASE) $(OUT_RELEASE)

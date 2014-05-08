@@ -38,10 +38,11 @@ class World
 
         uniform_real_distribution<> dis;
         mt19937 gen;
+        
+        Cell** cell;
     protected:
     private:
         double solarLuminosity;
-        Cell** cell;
 };
 
 #endif // WORLD_H

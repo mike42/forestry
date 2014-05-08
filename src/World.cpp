@@ -19,8 +19,6 @@ World::~World()
 {
     size_t y;
     for(y = 0; y < WORLD_HEIGHT; y++) {
-        this -> cell[y][0].colour = GREY;
-        this -> cell[y][19].colour = GREY;
         delete[] (this -> cell[y]);
     }
     delete[] this -> cell;

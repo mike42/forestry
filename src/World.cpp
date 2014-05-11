@@ -14,7 +14,7 @@ World::World()
     gen = mt19937(rd());
     dis = uniform_real_distribution<>(0, 1);
     
-    d = new Display(this, DEST_FILE);
+    d = new Display(this, DEST_SCREEN);
     d -> frameSkip = 1;
 }
 

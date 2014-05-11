@@ -18,8 +18,8 @@ SimulationDriver::SimulationDriver(double clearance)
     
     // Seed the first world and set it to a habitable temperature
     this -> world[0] -> setSolarLuminosity(START_LUMINOSITY);
-    this -> world[0] -> setGlobalTemp(30);
-    this -> world[0] -> seed(0.5);
+    this -> world[0] -> setGlobalTemp(DAISY_TEMP_OPTIMAL - 17.3);
+    this -> world[0] -> seed(1.0);
 }
 
 void SimulationDriver::run()
@@ -43,7 +43,7 @@ void SimulationDriver::run()
 
             /* Perform a 'census', and stop when all worlds are dead */
             counts = this -> world[i] -> census();
-            cout << frameCount << "\t" << i << "\t" << counts.black << "\t" << counts.white << "\t" << counts.none << "\t" << counts.temperature << "\n";
+            cout << frameCount << "\t" << i << "\t" << counts.black << "\t" << counts.white << "\t" << "\t" << counts.temperature << "\t" << this -> world[i] -> getSolarLuminosity() << "\n";
             if(counts.black == 0 && counts.white == 0) {
                 // Note dead planet
                 dead++;

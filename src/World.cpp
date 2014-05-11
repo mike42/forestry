@@ -6,13 +6,16 @@ World::World()
 
     size_t y;
     this -> cell = new Cell*[WORLD_HEIGHT];
-    for(y = 0; y < WORLD_HEIGHT; ++y) {
+    for(y = 0; y < WORLD_HEIGHT; y++) {
        this -> cell[y] = new Cell[WORLD_WIDTH];
     }
 
     random_device rd;
     gen = mt19937(rd());
     dis = uniform_real_distribution<>(0, 1);
+    
+    d = new Display(this, DEST_FILE);
+    d -> frameSkip = 1;
 }
 
 World::~World()
@@ -22,6 +25,7 @@ World::~World()
         delete[] (this -> cell[y]);
     }
     delete[] this -> cell;
+    delete d;
 }
 
 void World::update() {
@@ -31,12 +35,14 @@ void World::update() {
             this -> cell[y][x].calcUpdate(this, x, y);
         }
     }
-    
+
     for(y = 0; y < WORLD_HEIGHT; y++) {
         for(x = 0; x < WORLD_WIDTH; x++) {
             this -> cell[y][x].doUpdate(this, x, y);
         }
     }
+    
+    d -> update();
 }
 
 population_t World::census() {
@@ -83,9 +89,9 @@ int World::seed(double density) {
                 } else {
                     cell[y][x].colour = WHITE;
                 }
-                cell[y][x].energy = (int)(dis(gen) * (double)DAISY_BREED_STEP); // Random energy
+                cell[y][x].energy = rand() % DAISY_DIE_STEP; // Random energy
                 ret++;
-            }
+           }
         }
     }
 
@@ -101,10 +107,9 @@ void World::setGlobalTemp(double temp) {
     }
 }
 
-void World::getLocalArea(size_t x, size_t y, Cell* ptr[9]) {
+void World::getLocalArea(size_t x, size_t y, Cell* (&ptr)[9]) {
     int src_x = 0;
     int src_y = 0;
-    
     for(size_t i = 0; i < 9; i++) {
         src_x = (x - 1) + (i % 3);
         src_y = (y - 1) + (i / 3);

@@ -1,6 +1,9 @@
 #include "Cell.h"
 #define DAISY_PROPAGATION_PROB 0.0125
 
+/* Stefan-Boltzmann constant is 5.670373 × 10-8 kg s-3 K-4 */
+#define SB_CONST 5.670373E8
+
 double breedProbability(double temperature);
 
 Cell::Cell()
@@ -20,8 +23,9 @@ Cell::~Cell()
 void Cell::calcUpdate(World* w, size_t pos_x, size_t pos_y) {
     /* Figure out new temperature. Will be averaged before applying */
     doDie = false;
-    // TODO
-    nextTemp = temperature + (w -> getSolarLuminosity() * (1.0 - getAlbedo())) - 0.32;
+    // TODO Radiation lost to space: $\sigma_b T^4_0 = S(1-A_0)$
+    double lostToSpace = 0.32;
+    nextTemp = temperature + (w -> getSolarLuminosity() * (1.0 - getAlbedo())) - lostToSpace;
 
     if(is_daisy && w -> dis(w -> gen) < DAISY_DIE_PROBABILITY) {
             doDie = true;

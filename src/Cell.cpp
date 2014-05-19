@@ -10,7 +10,6 @@ Cell::Cell()
     is_daisy = false;
     doDie = false;
     nextTemp = 0;
-    energy = 0;
 }
 
 Cell::~Cell()
@@ -21,13 +20,11 @@ Cell::~Cell()
 void Cell::calcUpdate(World* w, size_t pos_x, size_t pos_y) {
     /* Figure out new temperature. Will be averaged before applying */
     doDie = false;
+    // TODO
     nextTemp = temperature + (w -> getSolarLuminosity() * (1.0 - getAlbedo())) - 0.32;
 
-    if(is_daisy) {
-        energy++;
-        if(energy >= DAISY_DIE_STEP) {
+    if(is_daisy && w -> dis(w -> gen) < DAISY_DIE_PROBABILITY) {
             doDie = true;
-        }
     }
 }
 
@@ -46,7 +43,6 @@ void Cell::doUpdate(World* w, size_t pos_x, size_t pos_y) {
     
     if(is_daisy && doDie) {
         is_daisy = false;
-        energy = 0;
         colour = GREY;
     }
     
@@ -62,7 +58,6 @@ void Cell::doUpdate(World* w, size_t pos_x, size_t pos_y) {
         
         if(candidate_count > 0 && w -> dis(w -> gen) < breedProbability(temperature)) {
             is_daisy = true;
-            energy = 0;
             colour = candidate[rand() % candidate_count] -> colour;
         }
     }

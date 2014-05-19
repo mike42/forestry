@@ -89,7 +89,6 @@ int World::seed(double density) {
                 } else {
                     cell[y][x].colour = WHITE;
                 }
-                cell[y][x].energy = rand() % DAISY_DIE_STEP; // Random energy
                 ret++;
            }
         }

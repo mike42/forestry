@@ -35,10 +35,12 @@
 			<Add option="-fexceptions" />
 		</Compiler>
 		<Unit filename="include/Cell.h" />
+		<Unit filename="include/Display.h" />
 		<Unit filename="include/SimulationDriver.h" />
 		<Unit filename="include/World.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="src/Cell.cpp" />
+		<Unit filename="src/Display.cpp" />
 		<Unit filename="src/SimulationDriver.cpp" />
 		<Unit filename="src/World.cpp" />
 		<Extensions>

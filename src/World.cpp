@@ -1,6 +1,6 @@
 #include "World.h"
 
-World::World()
+World::World(int id, int seed)
 {
     this -> solarLuminosity = 0;
 
@@ -13,8 +13,8 @@ World::World()
     random_device rd;
     gen = mt19937(rd());
     dis = uniform_real_distribution<>(0, 1);
-    
-    d = new Display(this, DEST_SCREEN);
+
+    d = new Display(this, DEST_SCREEN, id);
     d -> frameSkip = 1;
 }
 
@@ -41,7 +41,7 @@ void World::update() {
             this -> cell[y][x].doUpdate(this, x, y);
         }
     }
-    
+
     d -> update();
 }
 
@@ -79,7 +79,7 @@ int World::clear(double clearance) {
 int World::seed(double density) {
     size_t y, x;
     int ret = 0;
-        
+
     for(y = 0; y < WORLD_HEIGHT; y++) {
         for(x = 0; x < WORLD_WIDTH; x++) {
             if(!this -> cell[y][x].is_daisy && dis(gen) < density) {

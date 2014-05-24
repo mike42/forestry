@@ -12,11 +12,13 @@ class World;
 enum dest_t { DEST_NONE, DEST_FILE, DEST_SCREEN };
 class Display {
     public:
-        Display(World* w, dest_t dest);
+        Display(World* w, dest_t dest, int id);
         virtual ~Display();
         int update();
+
         int frameSkip;
         int seq;
+        std::string windowName;
     private:
         World* target;
         dest_t dest;

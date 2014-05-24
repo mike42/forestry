@@ -27,13 +27,13 @@ class Display;
 class World
 {
     public:
-        World();
+        World(int id, int seed);
         virtual ~World();
         population_t census();
         void setSolarLuminosity(double l) { this -> solarLuminosity = l; }
         double getSolarLuminosity() { return this -> solarLuminosity; }
         void update();
-        
+
         // Options to help the simulation tick along
         int clear(double clearance);
         int seed(double density);
@@ -42,7 +42,7 @@ class World
 
         uniform_real_distribution<> dis;
         mt19937 gen;
-        
+
         Cell** cell;
     protected:
     private:

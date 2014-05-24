@@ -1,6 +1,6 @@
 #include "Display.h"
 #include <unistd.h>
-#define WINDOW_NAME "Simulation View"
+#define WINDOW_NAME "Simulation View "
 #define SCALE_FACTOR 5
 
 using namespace cv;
@@ -32,12 +32,16 @@ Scalar fromHSL(double h, double s, double l) {
     return Scalar(round(r * 255.0), round(g * 255.0), round(b * 255.0));
 }
 
-Display::Display(World* w, dest_t dest) {
+Display::Display(World* w, dest_t dest, int id) {
+    char buffer[128];
+   sprintf(buffer, "%s %d", WINDOW_NAME, id);
+    this -> windowName = std::string(buffer);
     this -> dest = dest;
+
     target = w;
     frameSkip = 1;
     img = Mat::zeros(WORLD_HEIGHT * SCALE_FACTOR, WORLD_WIDTH * SCALE_FACTOR, CV_8UC3);
-    namedWindow(WINDOW_NAME, WINDOW_AUTOSIZE);
+    namedWindow(this -> windowName, WINDOW_AUTOSIZE);
     seq = 0;
     update();
 }
@@ -66,7 +70,7 @@ int Display::update() {
             while(intensity > 1) {
                 intensity -= 1;
             }
-            
+
             rectangle(img,
                 Point(x * SCALE_FACTOR, y * SCALE_FACTOR),
                 Point((x + 1) * SCALE_FACTOR - 1, (y + 1) * SCALE_FACTOR - 1),
@@ -85,7 +89,7 @@ int Display::update() {
     }
 
     if(dest == DEST_SCREEN) {
-        imshow(WINDOW_NAME, img);
+        imshow(this -> windowName, img);
         cvWaitKey(1);
     } else if(dest == DEST_FILE) {
         char f[16];

@@ -11,11 +11,11 @@ SimulationDriver::SimulationDriver(double clearance)
     }
 
     // Initialise first world and set other worlds to be empty
-    this -> world[0] = new World();
+    this -> world[0] = new World(0, 0);
     for(size_t i = 1; i <= CLEARTIMES; i++) {
         this -> world[i] = NULL;
     }
-    
+
     // Seed the first world and set it to a habitable temperature
     this -> world[0] -> setSolarLuminosity(START_LUMINOSITY);
     this -> world[0] -> setGlobalTemp(DAISY_TEMP_OPTIMAL - 17.3);

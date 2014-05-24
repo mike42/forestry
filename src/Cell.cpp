@@ -35,7 +35,7 @@ void Cell::doUpdate(World* w, size_t pos_x, size_t pos_y) {
     /* Get neighbour cells */
     Cell* neighbour[9];
     w -> getLocalArea(pos_x, pos_y, neighbour);
-    
+
     /* Adjust temperature (average of nextTemp of this block) */
     double avgTemp = 0;
     for(size_t i = 0; i < 9; i++) {
@@ -43,13 +43,13 @@ void Cell::doUpdate(World* w, size_t pos_x, size_t pos_y) {
     }
     avgTemp /= 9;
     temperature = avgTemp;
-    
+
     if(is_daisy && doDie) {
         is_daisy = false;
         energy = 0;
         colour = GREY;
     }
-    
+
     if(!is_daisy) {
         Cell* candidate[9];
         size_t candidate_count = 0;
@@ -59,7 +59,7 @@ void Cell::doUpdate(World* w, size_t pos_x, size_t pos_y) {
                 candidate_count++;
            }
         }
-        
+
         if(candidate_count > 0 && w -> dis(w -> gen) < breedProbability(temperature)) {
             is_daisy = true;
             energy = 0;

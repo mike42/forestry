@@ -62,7 +62,9 @@ void Cell::doUpdate(World* w, size_t pos_x, size_t pos_y) {
 
         if(candidate_count > 0 && w -> dis(w -> gen) < breedProbability(temperature)) {
             is_daisy = true;
-            colour = candidate[rand() % candidate_count] -> colour;
+            unsigned int j = (int)(w -> dis(w -> gen) * candidate_count);
+            assert(j >= 0 && j < candidate_count);
+            colour = candidate[j] -> colour;
         }
     }
 }

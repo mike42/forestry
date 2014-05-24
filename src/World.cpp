@@ -10,8 +10,12 @@ World::World(int id, int seed)
        this -> cell[y] = new Cell[WORLD_WIDTH];
     }
 
-    random_device rd;
-    gen = mt19937(rd());
+    if(seed == -1) {
+        random_device rd;
+        gen = mt19937(rd());
+    } else {
+        gen = mt19937(seed);
+    }
     dis = uniform_real_distribution<>(0, 1);
 
     d = new Display(this, DEST_SCREEN, id);

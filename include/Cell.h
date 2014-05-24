@@ -5,6 +5,8 @@
 #include <cmath>
 #include "World.h"
 
+#define STEFAN_BOLTZMANN_CONST 5.6704E-8
+
 enum CellColour { BLACK, WHITE, GREY };
 
 class World;

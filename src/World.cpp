@@ -1,8 +1,9 @@
 #include "World.h"
 
-World::World(int id, int seed)
+World::World(int id, simulation_options_t *options)
 {
     this -> solarLuminosity = 0;
+    this -> options = options;
 
     size_t y;
     this -> cell = new Cell*[WORLD_HEIGHT];
@@ -10,16 +11,15 @@ World::World(int id, int seed)
        this -> cell[y] = new Cell[WORLD_WIDTH];
     }
 
-    if(seed == -1) {
+    if(options -> seed == -1) {
         random_device rd;
         gen = mt19937(rd());
     } else {
-        gen = mt19937(seed);
+        gen = mt19937(options -> seed);
     }
     dis = uniform_real_distribution<>(0, 1);
 
-    d = new Display(this, DEST_SCREEN, id);
-    d -> frameSkip = 1;
+    d = new Display(this, id);
 }
 
 World::~World()
@@ -77,7 +77,26 @@ population_t World::census() {
 }
 
 int World::clear(double clearance) {
-    return true;
+return 0;
+    // Assumes square world
+    size_t clear_size = round(pow((double)(WORLD_WIDTH * WORLD_HEIGHT) * WORLD_SURFACE_CLEAR, 0.5));
+    size_t clear_start = (WORLD_WIDTH - clear_size) / 2;
+
+
+    size_t y, x;
+    int n = 0;
+    for(y = 0; y < WORLD_HEIGHT; y++) {
+        for(x = 0; x < WORLD_WIDTH; x++) {
+            if(x > clear_start && x < clear_start + clear_size &&
+                y > clear_start && y < clear_start + clear_size &&
+                dis(gen) < clearance) {
+                this -> cell[y][x].is_daisy = false;
+                this -> cell[y][x].colour = GREY;
+                n++;
+            }
+        }
+    }
+    return n;
 }
 
 int World::seed(double density) {

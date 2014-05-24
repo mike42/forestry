@@ -7,22 +7,24 @@
 #include <cv.h>
 #include <highgui.h>
 #include "World.h"
+#include "SimulationDriver.h"
 
 class World;
-enum dest_t { DEST_NONE, DEST_FILE, DEST_SCREEN };
+
 class Display {
     public:
-        Display(World* w, dest_t dest, int id);
+        Display(World* w, int id);
         virtual ~Display();
         int update();
-
-        int frameSkip;
         int seq;
+        int id;
+
         std::string windowName;
     private:
         World* target;
-        dest_t dest;
         cv::Mat img;
+        display_type_t dest;
+        int frame_skip;
 };
 
 

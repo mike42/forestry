@@ -63,7 +63,7 @@ int Display::update() {
     Scalar black = Scalar( 0, 0, 0 );
     for(y = 0; y < WORLD_HEIGHT; y++) {
         for(x = 0; x <  WORLD_WIDTH; x++) {
-            double intensity = ((target -> cell[y][x].temperature - DAISY_TEMP_OPTIMAL) / 255.0);
+            double intensity = ((DAISY_TEMP_OPTIMAL - target -> cell[y][x].temperature) / 200.0);
             while(intensity < 0) {
                 intensity += 1;
             }

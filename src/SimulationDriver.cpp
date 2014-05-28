@@ -14,7 +14,7 @@ SimulationDriver::SimulationDriver(simulation_options_t *options)
     }
 
     // Initialise all required worlds
-    for(size_t i = 0; i <= WORLD_COUNT; i++) {
+    for(size_t i = 0; i < WORLD_COUNT; i++) {
         if(i <= clear_count) {
             // Seed worlds and set them to a habitable temperature
             this -> world[i] = new World(i, options);
@@ -23,13 +23,11 @@ SimulationDriver::SimulationDriver(simulation_options_t *options)
 
             if(options -> simulation_type != SIM_EMPTY) {
                 this -> world[i] -> seed(1);
-            }   
+            }
         } else {
             this -> world[i] = NULL;
         }
     }
-
-    cout << "A\n";
 }
 
 void SimulationDriver::run()
@@ -39,13 +37,9 @@ void SimulationDriver::run()
 
     do {
         dead = 0;
-        /* Step up solar intensity */
-        if(frameCount % LUMINOSITY_STEP_FRAMES == LUMINOSITY_STEP_FRAMES - 1) {
-            for(size_t i = 0; i <= clear_count; i++) {
-                this -> world[i] -> setSolarLuminosity(this -> world[i] -> getSolarLuminosity() + LUMINOSITY_STEP);
-            }
-        }
+        frameCount++;
 
+        cout << frameCount << "\t" << this -> world[0] -> getSolarLuminosity();
         for(size_t i = 0; i <= clear_count; i++) {
             /*  Update each world */
             this -> world[i] -> update();
@@ -57,13 +51,20 @@ void SimulationDriver::run()
 
             /* Perform a 'census' */
             counts = this -> world[i] -> census();
-            cout << frameCount << "\t" << i << "\t" << counts.black << "\t" << counts.white << "\t" << "\t" << counts.temperature << "\t" << this -> world[i] -> getSolarLuminosity() << "\n";
+            cout << "\t" << counts.black << "\t" << counts.white << "\t" << "\t" << counts.temperature;
             if(counts.black == 0 && counts.white == 0) {
               // Note dead planet
               dead++;
             }
         }
-        frameCount++;
+        cout << "\n";
+
+        /* Step up solar intensity */
+        if(frameCount % LUMINOSITY_STEP_FRAMES == LUMINOSITY_STEP_FRAMES - 1) {
+            for(size_t i = 0; i <= clear_count; i++) {
+                this -> world[i] -> setSolarLuminosity(this -> world[i] -> getSolarLuminosity() + LUMINOSITY_STEP);
+            }
+        }
     } while(frameCount < num_frames || (num_frames == 0 && dead <= clear_count));
 
     return;
@@ -71,7 +72,7 @@ void SimulationDriver::run()
 
 SimulationDriver::~SimulationDriver()
 {
-   // for(size_t i = 0; i <= CLEARTIMES && i <= (this -> clears); i++) {
-    //    delete this -> world[i];
-   // }
+    for(size_t i = 0; i <= clear_count; i++) {
+        delete this -> world[i];
+    }
 }

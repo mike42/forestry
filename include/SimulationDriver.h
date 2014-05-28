@@ -19,9 +19,10 @@ struct simulation_options_t {
     display_type_t display_type;
     char *outpFilePrefix;
     int seed;
-    int frame_skip;
+    unsigned long frame_skip;
     double clearance;
-    unsigned int num_frames;
+    unsigned long num_frames;
+    unsigned long until;
     unsigned long clear_frame[WORLD_COUNT - 1];
     size_t clear_count;
     int temp_only;
@@ -41,7 +42,7 @@ class SimulationDriver
         double clearance;
         unsigned long int frameCount;
 
-        unsigned int num_frames;
+        unsigned long num_frames;
         size_t clear_count;
         unsigned long clear_frame[WORLD_COUNT - 1];
 

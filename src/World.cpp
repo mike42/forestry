@@ -24,6 +24,7 @@ World::World(int id, simulation_options_t *options)
 
 World::~World()
 {
+    options = NULL;
     size_t y;
     for(y = 0; y < WORLD_HEIGHT; y++) {
         delete[] (this -> cell[y]);

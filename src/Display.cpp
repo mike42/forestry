@@ -93,13 +93,13 @@ int Display::update() {
         }
     }
 
-    if(seq % (frame_skip + 1) == 0) {
+    if(seq % (frame_skip + 1) == 0 && seq >= (target -> options -> until)) {
         if(dest == DEST_WINDOW) {
             imshow(this -> windowName, img);
             cvWaitKey(1);
         } else if(dest == DEST_FILE) {
             char f[15 + strlen(target -> options -> outpFilePrefix)];
-            sprintf(f, "%s-%01d-%05d.png", target -> options -> outpFilePrefix, id, seq / (frame_skip + 1));
+            sprintf(f, "%s-%01d-%06lu.png", target -> options -> outpFilePrefix, id, seq / (frame_skip + 1) - target -> options -> until);
             imwrite(f, img);
         }
     }

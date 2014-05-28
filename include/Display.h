@@ -16,7 +16,7 @@ class Display {
         Display(World* w, int id);
         virtual ~Display();
         int update();
-        int seq;
+        unsigned long seq;
         int id;
 
         std::string windowName;

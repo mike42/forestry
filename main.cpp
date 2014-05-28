@@ -19,7 +19,7 @@ int main(int argc, char **argv)
     options.until = 0;
     options.frame_skip = 0;
     options.seed = -1;
-    options.num_frames = -1;
+    options.num_frames = 0;
     options.temp_only = 0;
     options.clear_count = 0;
     options.outpFilePrefix = new char[20];

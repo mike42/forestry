@@ -1,13 +1,14 @@
+#include <stdio.h>
+
 #ifndef SIMULATIONDRIVER_H
 #define SIMULATIONDRIVER_H
 
 #define START_LUMINOSITY 0.65F
 #define START_TEMP DAISY_TEMP_OPTIMAL - 17.3
-#define LUMINOSITY_STEP 0.00001F
+#define LUMINOSITY_STEP 0.00003F
 #define LUMINOSITY_STEP_FRAMES 1
 
-#define CLEARTIMES 3
-#define CLEARSTEP 1000
+#define WORLD_COUNT 4
 
 /* Structs to store simultion options */
 enum simulation_type_t {SIM_DAISYWORLD, SIM_EMPTY, SIM_FORESTRY};
@@ -20,7 +21,9 @@ struct simulation_options_t {
     int seed;
     int frame_skip;
     double clearance;
-    int num_frames;
+    unsigned int num_frames;
+    unsigned long clear_frame[WORLD_COUNT - 1];
+    size_t clear_count;
     int temp_only;
 };
 
@@ -36,10 +39,13 @@ class SimulationDriver
     private:
         bool graphical;
         double clearance;
-        unsigned int clearFrame[CLEARTIMES];
-        unsigned int clears;
         unsigned long int frameCount;
-        World* world[CLEARTIMES + 1];
+
+        unsigned int num_frames;
+        size_t clear_count;
+        unsigned long clear_frame[WORLD_COUNT - 1];
+
+        World* world[WORLD_COUNT];
 };
 
 #endif // SIMULATIONDRIVER_H

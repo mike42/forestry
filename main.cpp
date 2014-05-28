@@ -22,9 +22,10 @@ int main(int argc, char **argv)
     options.seed = -1;
     options.num_frames = 0;
     options.temp_only = 0;
+    options.clear_count = 1;
+    options.clear_frame[0] = 100;
 
     extern char *optarg;
-    extern int optind, optopt;
 
     if(argc == 0) {
         usage();
@@ -43,7 +44,7 @@ int main(int argc, char **argv)
         {"random-seed", required_argument, NULL, 'r'},
         {"usage", no_argument, NULL, 'u'},
         {"num-frames", required_argument, NULL, 'n'},
-        {"display-temp-only", required_argument, NULL, 't'},
+        {"display-temp-only", no_argument, NULL, 't'},
         {0, 0, 0, 0}
     };
 

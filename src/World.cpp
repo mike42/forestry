@@ -77,11 +77,9 @@ population_t World::census() {
 }
 
 int World::clear(double clearance) {
-return 0;
     // Assumes square world
     size_t clear_size = round(pow((double)(WORLD_WIDTH * WORLD_HEIGHT) * WORLD_SURFACE_CLEAR, 0.5));
     size_t clear_start = (WORLD_WIDTH - clear_size) / 2;
-
 
     size_t y, x;
     int n = 0;

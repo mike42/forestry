@@ -5,7 +5,7 @@ Daisyworld-style artificial life simulation for evaluating sustainable forestry
 management practices.
 
 This has only been tested on Debian GNU/Linux, but would in theory work on any
-unix. You will need a C++ compiler, opencv libraries, and (optionally) gnuplot: 
+UNIX. You will need a C++ compiler, OpenCV libraries, and (optionally) gnuplot: 
 
         sudo apt-get install libopencv-dev gnuplot
 
@@ -31,7 +31,7 @@ following ones will help you experiment with the forestry and monitor its output
         -c amount [frame1 frame2 frame3]
             The portion of trees to clear in the designated area, between 0 and 1.
             Add up to three frame numbers on the command-line, to clear each world at.
-            In --display-window, this will create up to 4 windows, one as acontrol,
+            In --display-window, this will create up to 4 windows, one as a control,
             and three being cleared at the frames set in the other arguments.
         
         --daisyworld
@@ -47,7 +47,7 @@ following ones will help you experiment with the forestry and monitor its output
         --random-seed n
         -r n
             Set the number to seed the random number generator with. If not specified,
-            it is seeded from a system-provded random device.
+            it is seeded from a system-provided random device.
         
         --num-frames number
         -n number
@@ -76,7 +76,7 @@ following ones will help you experiment with the forestry and monitor its output
         --display-file prefix
         -f prefix
             Save rendered frames to files, named with the specified prefix. This
-            may produce several gigabytes of data, so considder combining it with options
+            may produce several gigabytes of data, so consider combining it with options
             such as --display-invisible 50, --num-frames 100 --display-skip 1
 
             Remember that a simulation can be repeated if you pass it a seed!
@@ -97,7 +97,7 @@ To generate a capture video from PNG output:
 
     avconv -f image2 -r 200 -i frame-0-%5d.png daisyworld.mp4
 
-To reduce it to an acceptable filesize (as the above is 200FPS and will be a few hundred MB):
+To reduce it to an acceptable file-size (as the above is 200FPS and will be a few hundred MB):
 
     avconv -i daisyworld.mp4 -r:v 18 -b:v 2000k daisyworld-small.mp4
     
